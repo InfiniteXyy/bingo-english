@@ -1,21 +1,24 @@
 import inquirer from 'inquirer';
-import { provideWord } from './wordProvider';
+import { provideWord, updateWordStatus } from './wordProvider';
 
 let word = provideWord();
 
 export default function bingo() {
+  let knowRate = (word.knowRate * 100).toString().slice(0, 4) + '%';
   inquirer
     .prompt({
       type: 'confirm',
       name: 'remember',
-      message: `你是否认识 "${word.word}"`
+      message: `(记得率: ${knowRate}) 你是否认识 "${word.word}"`
     })
     .then(answers => {
       let { remember } = answers;
       if (remember) {
         console.log('恭喜！它的意思是：' + word.description);
+        updateWordStatus(word.word, true);
       } else {
         chooseAnswer();
+        updateWordStatus(word.word, false);
       }
     });
 }
