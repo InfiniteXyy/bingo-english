@@ -1,0 +1,22 @@
+{
+  "name": "bingo-english",
+  "version": "0.0.1",
+  "description": "A cli application for you to learn new english words.",
+  "main": "index.js",
+  "author": "infiniteXyy",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^6.2.0"
+  },
+  "scripts": {
+    "prestart": "babel . --ignore node_modules,lib -d lib --quiet",
+    "build": "babel . --ignore node_modules,lib -d lib --quiet",
+    "start": "node lib/index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
