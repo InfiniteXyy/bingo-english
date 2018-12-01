@@ -36,6 +36,10 @@ export function provideWord() {
   };
 }
 
+export function provideWords(size = 5) {
+  return pickRandomN(words.filter(i => i.knowRate !== 0), size);
+}
+
 export function updateWordStatus(wordText, know = false) {
   const data = lines
     .map(i => {
