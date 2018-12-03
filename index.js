@@ -2,6 +2,7 @@
 import bingo from './src/bingo';
 import quiz from './src/quiz';
 import { ArgumentParser } from 'argparse';
+import recognize from './src/recognize';
 
 let parser = new ArgumentParser({
   version: '0.0.2',
@@ -11,7 +12,12 @@ let parser = new ArgumentParser({
 
 parser.addArgument(['-q', '--quiz'], {
   help: 'create a quiz of size num, from chinese to english',
-  dest: 'num'
+  dest: 'qsize'
+});
+
+parser.addArgument(['-r', '--reco'], {
+  help: 'recognize some english words',
+  dest: 'rsize'
 });
 
 parser.addArgument(['-l', '--learn'], {
@@ -20,10 +26,12 @@ parser.addArgument(['-l', '--learn'], {
 });
 
 let args = parser.parseArgs();
-if (args['num'] !== null) {
-  quiz(args['num']);
+if (args['qsize'] !== null) {
+  quiz(args['qsize']);
 } else if (args['wordsNum'] !== null) {
   console.log('Learn Words');
+} else if (args['rsize'] !== null) {
+  recognize(args['rsize']);
 } else {
   bingo();
 }

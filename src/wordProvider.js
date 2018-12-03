@@ -5,8 +5,8 @@ import { pickOne, pickRandomN } from './utils';
 const dataPath = path.join(__dirname, '..', 'data', 'words.csv');
 const fileContents = fs.readFileSync(dataPath);
 
-const lines = fileContents.toString().split('\n');
-const words = lines
+let lines = fileContents.toString().split('\n');
+let words = lines
   .filter(i => i.trim() !== '')
   .map(i => {
     let knowRate;
@@ -37,19 +37,18 @@ export function provideWord() {
 }
 
 export function provideWords(size = 5) {
-  return pickRandomN(words.filter(i => i.knowRate !== 0), size);
+  return pickRandomN(words, size);
 }
 
 export function updateWordStatus(wordText, know = false) {
-  const data = lines
-    .map(i => {
-      let content = i.split(',');
-      if (content[1] === wordText) {
-        content[3]++;
-        if (know) content[2]++;
-      }
-      return content.join(',');
-    })
-    .join('\n');
-  fs.writeFileSync(dataPath, data);
+  const data = lines.map(i => {
+    let content = i.split(',');
+    if (content[1] === wordText) {
+      content[3]++;
+      if (know) content[2]++;
+    }
+    return content.join(',');
+  });
+  lines = data;
+  fs.writeFileSync(dataPath, data.join('\n'));
 }
